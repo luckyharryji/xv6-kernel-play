@@ -1,8 +1,6 @@
 #ifndef _DEFS_H_
 #define _DEFS_H_
 
-#include "ProcessInfo.h"
-
 struct buf;
 struct context;
 struct file;
@@ -112,7 +110,7 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
-int             getprocs(struct ProcessInfo[]);
+int             getprocs(struct ProcessInfo*);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
