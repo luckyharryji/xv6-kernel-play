@@ -5,6 +5,7 @@
 #include "mmu.h"
 #include "proc.h"
 #include "sysfunc.h"
+#include "ProcessInfo.h"
 
 int
 sys_fork(void)
@@ -87,4 +88,14 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+int
+sys_getprocs(void) {
+  char *processInfoTable;
+
+  if (argptr(0, &processInfoTable, sizeof(struct ProcessInfo) * NPROC) < 0) {
+    return -1;
+  }
+  return getprocs((struct ProcessInfo*) processInfoTable);
 }

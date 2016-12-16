@@ -5,7 +5,6 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
-
 #include "ProcessInfo.h"
 
 struct {
@@ -27,7 +26,8 @@ pinit(void)
   initlock(&ptable.lock, "ptable");
 }
 
-int getprocs(struct ProcessInfo processInfoTable[]) {
+int 
+getprocs(struct ProcessInfo processInfoTable[]) {
   int processCount = 0;
   struct proc *p;
 
@@ -467,5 +467,3 @@ procdump(void)
     cprintf("\n");
   }
 }
-
-

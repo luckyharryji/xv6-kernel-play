@@ -4,6 +4,7 @@
 #include "ProcessInfo.h"
 
 struct stat;
+struct ProcessInfo;
 
 // system calls
 int fork(void);
@@ -27,7 +28,6 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-
 int getprocs(struct ProcessInfo[]);
 
 // user library functions (ulib.c)
@@ -45,4 +45,3 @@ void free(void*);
 int atoi(const char*);
 
 #endif // _USER_H_
-

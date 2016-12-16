@@ -112,7 +112,6 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
-
 int             getprocs(struct ProcessInfo[]);
 
 // swtch.S

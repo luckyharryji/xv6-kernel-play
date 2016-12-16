@@ -1,10 +1,19 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-
-int main(int argc, char *argv[])
+#include "param.h"
+#include "ProcessInfo.h"
+ 
+int
+main(int argc, char *argv[])
 {
-  printf(1, "Initial ps command\n");
+  struct ProcessInfo *procInfo = malloc(sizeof(struct ProcessInfo) * NPROC);
+  int numProcs;
+  
+  numProcs = getprocs(procInfo);
 
+  printf(1, "There are total %d process\n", numProcs);
+  
+  free(procInfo);
   exit();
 }
