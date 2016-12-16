@@ -6,6 +6,8 @@
 #include "proc.h"
 #include "spinlock.h"
 
+#include "ProcessInfo.h"
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -23,6 +25,29 @@ void
 pinit(void)
 {
   initlock(&ptable.lock, "ptable");
+}
+
+int getprocs(struct ProcessInfo processInfoTable[]) {
+  int processCount = 0;
+  struct proc *p;
+
+  acquire(&ptable.lock);
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+    if (p->state != UNUSED) {
+      processInfoTable[processCount].pid = p->pid;
+      processInfoTable[processCount].state = p->state;
+      processInfoTable[processCount].sz = p->sz;
+      memmove(processInfoTable[processCount].name, p->name, 16);
+      if (p->parent == NULL) {
+        processInfoTable[processCount].ppid = -1;
+      } else {
+        processInfoTable[processCount].ppid = p->parent->pid;
+      }
+      processCount += 1;
+    }
+  }
+  release(&ptable.lock);
+  return processCount;
 }
 
 // Look in the process table for an UNUSED proc.
